@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -21,6 +22,7 @@ public class Maze extends Application {
 	 ImageView wallImageView;
 	 int x = 0;
 	 int y = 0;
+	 GridPane myPane = new GridPane();
 	 
 	 
 	public static void main(String[] args) {
@@ -46,6 +48,21 @@ public class Maze extends Application {
 		
 		while (myScanner.hasNextLine()){
 			Scanner lineScan = new Scanner(myScanner.nextLine());
+			while (lineScan.hasNext()) {
+				if (lineScan.next().equals(1)) {
+					Image wall = new Image("file:src/wall.jpg");
+					wallImageView = new ImageView(wall);
+					wallImageView.setFitWidth(50);
+					wallImageView.setFitHeight(50);
+					myPane.add(wallImageView, x, y);
+					x=x+10;
+				}
+				if (lineScan.next().equals(0)) {
+					
+				//do nothing	
+				}			
+			}
+			y = y +10;
 			
 		}
 		
