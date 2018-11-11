@@ -17,14 +17,15 @@ import javafx.stage.Stage;
  
 
 public class Maze extends Application {
-
+	
+	
 	 ImageView myImageView;
 	 ImageView wallImageView;
 	 int x = 0;
 	 int y = 0;
 	 int read;
 	 GridPane myPane = new GridPane();
-	 
+	 Scanner myScanner;
 	 
 	public static void main(String[] args) {
 		launch(args);
@@ -37,31 +38,50 @@ public class Maze extends Application {
 		File file1 = new File("./src/Lab9.1.txt");
 		File file2 = new File("./src/Lab9.2.txt");
 		
-		/*ArrayList fileArray = new ArrayList();
-		fileArray.add(file1);
-		fileArray.add(file2);
+		ArrayList fileArray = new ArrayList();
+		
+		
 		
 		Random rand = new Random();
 		int chosenFile = rand.nextInt(2);
-		int chosenMaze = (int) fileArray.get(chosenFile);*/
+		if (chosenFile == 0) {
+			fileArray.add(file1);
+			myScanner = new Scanner(file1);
+		}
+		else {
+			fileArray.add(file2);
+			myScanner = new Scanner(file2);
+		}
 		
-		Scanner myScanner = new Scanner(file1);
-		System.out.println(myScanner);
+		ArrayList<ImageView> wallArray = new ArrayList();
+		
+		
+		
+		Image image1 = new Image("file:src/hero.png");
+		myImageView = new ImageView(image1);
+		myImageView.setFitWidth(50);
+		myImageView.setFitHeight(50);
+		myImageView.setX(x);
+		myImageView.setY(y);
+		
+		
 		while (myScanner.hasNextLine()){
 			String line = myScanner.nextLine();
 			Scanner lineScan = new Scanner(line);
-			lineScan.useDelimiter(" ");
-		System.out.println(lineScan);
+			//lineScan.useDelimiter(" ");
 			while (lineScan.hasNext()) {
-				read = lineScan.nextInt();
+				read = lineScan.nextInt();	
+				System.out.println(read);
 				if (read == 1) {
 					Image wall = new Image("file:src/wall.jpg");
 					wallImageView = new ImageView(wall);
 					wallImageView.setFitWidth(50);
 					wallImageView.setFitHeight(50);
-					myPane.add(wallImageView, x, y);
+					wallImageView.setX(x);
+					wallImageView.setY(y);
+					wallArray.add(wallImageView);
 				}
-				System.out.println(read);
+			
 				x=x+10;
 				if (read == 0) {
 					
@@ -72,24 +92,15 @@ public class Maze extends Application {
 			
 		}
 		
+		//myPane.add(wallImageView, 10, 10);
 		System.out.println("Something");
-		Image wall = new Image("file:src/wall.jpg");
-		wallImageView = new ImageView(wall);
-		wallImageView.setFitWidth(50);
-		wallImageView.setFitHeight(50);
-		wallImageView.setX(x);
-		wallImageView.setY(y);
-		
-		Image image1 = new Image("file:src/hero.png");
-		myImageView = new ImageView(image1);
-		myImageView.setFitWidth(50);
-		myImageView.setFitHeight(50);
-		myImageView.setX(x);
-		myImageView.setY(y);
 		
 		
 		
-	
+		
+		
+		
+		myPane.add(myImageView, x, y);
 		
 		Group root = new Group(myImageView);
 		Scene scene = new Scene(root,500,500,Color.WHITE);
