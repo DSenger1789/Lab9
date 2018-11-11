@@ -22,6 +22,7 @@ public class Maze extends Application {
 	 ImageView wallImageView;
 	 int x = 0;
 	 int y = 0;
+	 int read;
 	 GridPane myPane = new GridPane();
 	 
 	 
@@ -36,36 +37,42 @@ public class Maze extends Application {
 		File file1 = new File("./src/Lab9.1.txt");
 		File file2 = new File("./src/Lab9.2.txt");
 		
-		ArrayList fileArray = new ArrayList();
+		/*ArrayList fileArray = new ArrayList();
 		fileArray.add(file1);
 		fileArray.add(file2);
 		
 		Random rand = new Random();
 		int chosenFile = rand.nextInt(2);
-		int chosenMaze = (int) fileArray.get(chosenFile);
+		int chosenMaze = (int) fileArray.get(chosenFile);*/
 		
-		Scanner myScanner = new Scanner((Readable) fileArray.get(chosenFile));
-		
+		Scanner myScanner = new Scanner(file1);
+		System.out.println(myScanner);
 		while (myScanner.hasNextLine()){
-			Scanner lineScan = new Scanner(myScanner.nextLine());
+			String line = myScanner.nextLine();
+			Scanner lineScan = new Scanner(line);
+			lineScan.useDelimiter(" ");
+		System.out.println(lineScan);
 			while (lineScan.hasNext()) {
-				if (lineScan.next().equals(1)) {
+				read = lineScan.nextInt();
+				if (read == 1) {
 					Image wall = new Image("file:src/wall.jpg");
 					wallImageView = new ImageView(wall);
 					wallImageView.setFitWidth(50);
 					wallImageView.setFitHeight(50);
 					myPane.add(wallImageView, x, y);
-					x=x+10;
 				}
-				if (lineScan.next().equals(0)) {
+				System.out.println(read);
+				x=x+10;
+				if (read == 0) {
 					
 				//do nothing	
 				}			
 			}
-			y = y +10;
+			y = y +1;
 			
 		}
 		
+		System.out.println("Something");
 		Image wall = new Image("file:src/wall.jpg");
 		wallImageView = new ImageView(wall);
 		wallImageView.setFitWidth(50);
